@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Update Product - SecureAuth</title>
+    <link rel="stylesheet" href="/css/addproduct.css" />
+  </head>
+  <body>
+    <div class="container">
+      <div class="header">
+        <h2>Update Product</h2>
+        <p>Edit the details below to update your product</p>
+      </div>
+
+      <div class="form-container">
+        <!-- Success/Error Messages -->
+        <% if (locals.success && locals.message) { %>
+          <div class="success-message"><%= message %></div>
+        <% } %>
+        <% if (locals.success === false && locals.message) { %>
+          <div class="error-message"><%= message %></div>
+        <% } %>
+
+        <form
+          action="/products/update/<%= product._id %>"
+          method="POST"
+          enctype="multipart/form-data"
+          id="productForm"
+        >
+          <div class="form-row">
+            <div class="form-group">
+              <label>Product Title</label>
+              <input
+                type="text"
+                name="title"
+                value="<%= product.title %>"
+                placeholder="Enter product title"
+                required
+              />
+            </div>
+
+            <div class="form-group">
+              <label>Price (₹)</label>
+              <input
+                type="number"
+                name="price"
+                min="0"
+                step="0.01"
+                value="<%= product.price %>"
+                placeholder="0.00"
+                required
+              />
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label>Description</label>
+            <textarea
+              name="description"
+              placeholder="Describe your product in detail..."
+              required
+            ><%= product.description %></textarea>
+          </div>
+
+          <div class="form-row">
+            <div class="form-group">
+              <label>Category</label>
+              <select name="category" required>
+                <option value="">Select category</option>
+                <option value="electronics" <%= product.category === 'electronics' ? 'selected' : '' %>>Electronics</option>
+                <option value="furniture" <%= product.category === 'furniture' ? 'selected' : '' %>>Furniture</option>
+                <option value="clothing" <%= product.category === 'clothing' ? 'selected' : '' %>>Clothing</option>
+                <option value="books" <%= product.category === 'books' ? 'selected' : '' %>>Books</option>
+                <option value="general" <%= product.category === 'general' ? 'selected' : '' %>>General</option>
+              </select>
+            </div>
+
+            <div class="form-group">
+              <label>Product Image</label>
+              <% if (product.image) { %>
+                <div class="current-image">
+                  <p>Current Image:</p>
+                  <img src="/<%= product.image %>" alt="Product Image" style="max-width:150px; border-radius:6px;"/>
+                </div>
+              <% } %>
+              <div class="file-input-wrapper">
+                <input
+                  type="file"
+                  name="image"
+                  accept="image/*"
+                  id="imageInput"
+                />
+                <label for="imageInput" class="file-input-label">
+                  <i>📸</i>
+                  <span id="fileText">Click to upload new image</span>
+                </label>
+              </div>
+            </div>
+          </div>
+
+          <div class="form-actions">
+            <button type="submit" class="btn-primary" id="submitBtn">
+              Update Product
+            </button>
+            <a href="/userdashboard" class="btn-cancel">Cancel</a>
+          </div>
+        </form>
+      </div>
+    </div>
+    <script src="/js/addproduct.js"></script>
+  </body>
+</html>

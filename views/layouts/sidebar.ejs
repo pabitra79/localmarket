@@ -1,0 +1,44 @@
+<div
+  class="d-flex flex-column flex-shrink-0 p-3 bg-light"
+  style="width: 250px; height: 100vh"
+>
+  <a
+    href="/"
+    class="d-flex align-items-center mb-3 mb-md-0 me-md-auto text-dark text-decoration-none"
+  >
+    <i class="fas fa-tachometer-alt me-2"></i>
+    <span class="fs-5">Dashboard</span>
+  </a>
+  <hr />
+  <ul class="nav nav-pills flex-column mb-auto">
+    <% if (data && data.role === 'admin') { %>
+    <li class="nav-item">
+      <a href="/admin-dashboard" class="nav-link text-dark">
+        <i class="fas fa-data-shield me-2"></i> Admin Panel
+      </a>
+    </li>
+    <li>
+      <a href="/manage-datas" class="nav-link text-dark">
+        <i class="fas fa-datas me-2"></i> Manage datas
+      </a>
+    </li>
+    <% } else { %>
+    <li>
+      <a href="/data-dashboard" class="nav-link text-dark">
+        <i class="fas fa-data me-2"></i> My Profile
+      </a>
+    </li>
+    <li>
+      <a href="/settings" class="nav-link text-dark">
+        <i class="fas fa-cog me-2"></i> Settings
+      </a>
+    </li>
+    <% } %>
+  </ul>
+  <hr />
+  <div>
+    <a href="/logout" class="btn btn-danger w-100">
+      <i class="fas fa-sign-out-alt me-2"></i> Logout
+    </a>
+  </div>
+</div>

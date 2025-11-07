@@ -1,0 +1,24 @@
+.product-image {
+  max-height: 400px;
+  object-fit: cover;
+  border-radius: 10px;
+}
+.seller-card {
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  color: white;
+  border-radius: 15px;
+}
+.price-display {
+  font-size: 2rem;
+  font-weight: bold;
+  color: #28a745;
+}
+.back-btn {
+  position: absolute;
+  top: 20px;
+  left: 20px;
+  z-index: 10;
+}
+.product-badge {
+  background: linear-gradient(45deg, #007bff, #0056b3);
+}

@@ -1,0 +1,347 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Home - Role Based Authentication</title>
+    <!-- Bootstrap 5 CSS -->
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+    />
+    <!-- Font Awesome for icons -->
+    <link
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+      rel="stylesheet"
+    />
+    <!-- Custom CSS -->
+    <link href="/css/style.css" rel="stylesheet" />
+    <link href="/css/cardstyle.css" rel="stylesheet" />
+  </head>
+  <body>
+    <% if (shownavbar) { %> <%- include("layouts/navbar") %> <% } %>
+    <!-- Hero Section -->
+    <section class="hero-section">
+      <div class="container">
+        <div class="row align-items-center">
+          <div class="col-lg-6">
+            <div class="hero-content">
+              <h1 class="hero-title">Your Local Marketplace Hub</h1>
+              <p class="hero-subtitle">
+                Connect with local sellers and buyers in your community. Secure
+                role-based platform for seamless buying and selling with trusted
+                authentication and user management.
+              </p>
+              <div class="mt-4">
+                <a href="/register" class="btn btn-cta me-3">
+                  <i class="fas fa-store me-2"></i>Start Selling
+                </a>
+                <a href="#features" class="btn btn-outline-light">
+                  <i class="fas fa-shopping-bag me-2"></i>Browse Products
+                </a>
+              </div>
+            </div>
+          </div>
+          <div class="col-lg-6">
+            <div class="text-center position-relative">
+              <div class="hero-illustration">
+                <i
+                  class="fas fa-store-alt"
+                  style="
+                    font-size: 8rem;
+                    color: #062d55;
+                    opacity: 0.8;
+                    position: relative;
+                    z-index: 2;
+                  "
+                ></i>
+                <i
+                  class="fas fa-users"
+                  style="
+                    font-size: 4rem;
+                    color: #0f7326;
+                    position: absolute;
+                    top: -20px;
+                    right: 20px;
+                    opacity: 0.7;
+                  "
+                ></i>
+                <i
+                  class="fas fa-handshake"
+                  style="
+                    font-size: 3rem;
+                    color: #927008;
+                    position: absolute;
+                    bottom: -10px;
+                    left: 10px;
+                    opacity: 0.7;
+                  "
+                ></i>
+                <i
+                  class="fas fa-shield-alt"
+                  style="
+                    font-size: 2.5rem;
+                    color: #bb192a;
+                    position: absolute;
+                    top: 50%;
+                    right: -10px;
+                    opacity: 0.6;
+                  "
+                ></i>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Features Section -->
+    <section id="features" class="features-section">
+      <div class="container">
+        <div class="row text-center mb-5">
+          <div class="col-lg-8 mx-auto">
+            <h2 class="display-4 fw-bold mb-3">Why Choose Our Marketplace?</h2>
+            <p class="lead text-muted">
+              Discover what makes our local marketplace the perfect platform for
+              buyers and sellers to connect securely and efficiently.
+            </p>
+          </div>
+        </div>
+
+        <!-- Products Section -->
+        <div class="row text-center mb-4">
+          <div class="col-12">
+            <h3 class="h2 fw-bold text-primary mb-3">
+              <i class="fas fa-store me-3"></i>Featured Products
+            </h3>
+            <p class="text-muted">
+              Discover amazing products from our trusted sellers
+            </p>
+          </div>
+        </div>
+
+        <div class="row gy-4 mb-5">
+          <% products.forEach(product => { %>
+          <div class="col-lg-4 col-md-6">
+            <div class="feature-card h-100 p-0 overflow-hidden">
+              <div class="product-image-wrapper">
+                <img
+                  src="/<%= product.image %>"
+                  class="card-img-top"
+                  alt="<%= product.title %>"
+                />
+              </div>
+              <div class="card-body d-flex flex-column px-3 pb-3">
+                <h5 class="card-title text-center fw-bold text-dark">
+                  <%= product.title %>
+                </h5>
+                <p class="card-text text-muted text-center">
+                  <%= product.description.length > 80 ?
+                  product.description.substring(0, 80) + '...' :
+                  product.description %>
+                </p>
+
+                <!-- Seller Details -->
+                <div class="seller-info">
+                  <p class="mb-1 fw-semibold text-primary">
+                    <i class="fas fa-user me-2"></i><%=
+                    product.sellerDetails.name %>
+                  </p>
+                  <p class="mb-1 small text-muted">
+                    <i class="fas fa-envelope me-2"></i><%=
+                    product.sellerDetails.email %>
+                  </p>
+                  <p class="mb-0 small text-muted">
+                    <i class="fas fa-phone me-2"></i><%=
+                    product.sellerDetails.phone %>
+                  </p>
+                </div>
+
+                <div class="mt-auto text-center">
+                  <div
+                    class="d-flex justify-content-between align-items-center mb-2"
+                  >
+                    <span class="price-badge text-success">
+                      ₹<%= product.price %>
+                    </span>
+                    <span class="badge bg-primary text-capitalize px-3 py-2">
+                      <%= product.category %>
+                    </span>
+                  </div>
+                  <button class="btn btn-outline-primary btn-sm w-100">
+                    <a
+                      href="/product/<%= product._id %>"
+                      class="btn btn-outline-primary btn-sm w-100"
+                    >
+                      <i class="fas fa-eye me-2"></i>View Details
+                    </a>
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
+          <% }) %>
+        </div>
+
+        <!-- Divider Section -->
+        <div class="row my-5">
+          <div class="col-12">
+            <hr
+              class="border-primary border-2 opacity-25 mx-auto"
+              style="width: 60%"
+            />
+            <div class="text-center py-4">
+              <i
+                class="fas fa-arrow-down text-primary"
+                style="font-size: 2rem; opacity: 0.6"
+              ></i>
+            </div>
+          </div>
+        </div>
+
+        <!-- About Platform Section -->
+        <div class="row text-center mb-5">
+          <div class="col-lg-8 mx-auto">
+            <h3 class="h2 fw-bold text-primary mb-3">
+              <i class="fas fa-info-circle me-3"></i>About Our Platform
+            </h3>
+            <p class="lead text-muted">
+              Explore the comprehensive features that power our secure
+              authentication and marketplace system
+            </p>
+          </div>
+        </div>
+
+        <!-- Features Cards -->
+        <div class="row g-4">
+          <div class="col-lg-4 col-md-6">
+            <div class="feature-card text-center p-4">
+              <div class="feature-icon mb-3">
+                <i
+                  class="fas fa-lock"
+                  style="font-size: 3rem; color: #007bff"
+                ></i>
+              </div>
+              <h3 class="feature-title h5 fw-bold">Secure Authentication</h3>
+              <p class="feature-description text-muted">
+                Advanced encryption and security measures ensure your data is
+                always protected with industry-standard protocols.
+              </p>
+            </div>
+          </div>
+
+          <div class="col-lg-4 col-md-6">
+            <div class="feature-card text-center p-4">
+              <div class="feature-icon mb-3">
+                <i
+                  class="fas fa-users-cog"
+                  style="font-size: 3rem; color: #28a745"
+                ></i>
+              </div>
+              <h3 class="feature-title h5 fw-bold">Role Management</h3>
+              <p class="feature-description text-muted">
+                Flexible role-based access control system that adapts to your
+                organization's unique requirements.
+              </p>
+            </div>
+          </div>
+
+          <div class="col-lg-4 col-md-6">
+            <div class="feature-card text-center p-4">
+              <div class="feature-icon mb-3">
+                <i
+                  class="fas fa-tachometer-alt"
+                  style="font-size: 3rem; color: #ffc107"
+                ></i>
+              </div>
+              <h3 class="feature-title h5 fw-bold">Admin Dashboard</h3>
+              <p class="feature-description text-muted">
+                Intuitive dashboards for both users and administrators with
+                comprehensive management tools.
+              </p>
+            </div>
+          </div>
+
+          <div class="col-lg-4 col-md-6">
+            <div class="feature-card text-center p-4">
+              <div class="feature-icon mb-3">
+                <i
+                  class="fas fa-store"
+                  style="font-size: 3rem; color: #dc3545"
+                ></i>
+              </div>
+              <h3 class="feature-title h5 fw-bold">Seller Platform</h3>
+              <p class="feature-description text-muted">
+                Sellers can easily add their products for sale and buyers can
+                purchase products seamlessly.
+              </p>
+            </div>
+          </div>
+
+          <div class="col-lg-4 col-md-6">
+            <div class="feature-card text-center p-4">
+              <div class="feature-icon mb-3">
+                <i
+                  class="fas fa-bolt"
+                  style="font-size: 3rem; color: #6610f2"
+                ></i>
+              </div>
+              <h3 class="feature-title h5 fw-bold">Fast Performance</h3>
+              <p class="feature-description text-muted">
+                Optimized for speed with lightning-fast load times and smooth
+                user interactions.
+              </p>
+            </div>
+          </div>
+
+          <div class="col-lg-4 col-md-6">
+            <div class="feature-card text-center p-4">
+              <div class="feature-icon mb-3">
+                <i
+                  class="fas fa-headset"
+                  style="font-size: 3rem; color: #20c997"
+                ></i>
+              </div>
+              <h3 class="feature-title h5 fw-bold">24/7 Support</h3>
+              <p class="feature-description text-muted">
+                Round-the-clock customer support to help you with any questions
+                or technical issues.
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Call to Action Section -->
+    <section class="cta-section">
+      <div class="container text-center">
+        <div class="row">
+          <div class="col-lg-8 mx-auto">
+            <h2 class="cta-title">Ready to Get Started?</h2>
+            <p class="cta-subtitle">
+              Join our growing community of local buyers and sellers who trust
+              our secure marketplace platform for safe transactions.
+            </p>
+            <div class="mt-4">
+              <a href="/register" class="btn btn-cta me-3">
+                <i class="fas fa-user-plus me-2"></i>Create Account
+              </a>
+              <a href="/login" class="btn btn-outline-light">
+                <i class="fas fa-sign-in-alt me-2"></i>Sign In
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Include Footer -->
+    <%- include('layouts/footer') %>
+
+    <!-- Bootstrap 5 JS Bundle -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <!-- Custom JS -->
+    <script src="/js/main.js"></script>
+  </body>
+</html>
